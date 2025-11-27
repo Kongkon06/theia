@@ -158,13 +158,13 @@ export class WorkspaceService implements FrontendApplicationContribution, Worksp
         // Prefer the workspace path specified as the URL fragment, if present.
         if (window.location.hash.length > 1) {
             const wpPath = decodeURI(window.location.hash.substring(1));
-            const folderSegments = wpPath.split('/').filter(s => s.length > 0);
 
+            const folderSegments = wpPath.split('/').filter(s => s.length > 0);
             let workspaceUri: URI;
 
-            const isDrivePattern = /^[A-Za-z]:$/.test(folderSegments[0]);
+            const isDrivePattern = wpPath.includes('//');
 
-            if (!isDrivePattern) {
+            if (isDrivePattern) {
                 const authority = folderSegments[0];
                 const path = '/' + folderSegments.slice(1).join('/');
 
@@ -550,13 +550,13 @@ export class WorkspaceService implements FrontendApplicationContribution, Worksp
 
     protected openWindow(uri: FileStat, options?: WorkspaceInput): void {
 
-        this.logger.debug(`Open window. FileStat: ${uri.resource.toString()}`);
+        console.log(`Open window. FileStat: ${uri.resource.toString()}`);
 
         const workspacePath = uri.resource.authority
-            ? `/${uri.resource.authority}${uri.resource.path.toString()}`
+            ? `//${uri.resource.authority}${uri.resource.path.toString()}`
             : uri.resource.path.toString();
 
-        this.logger.debug(`Workspace path: ${workspacePath}`);
+        console.log(`[workspace-service] [openWindow] Workspace path: ${workspacePath}`);
 
         if (this.shouldPreserveWindow(options)) {
             this.reloadWindow(workspacePath, options);
@@ -581,6 +581,7 @@ export class WorkspaceService implements FrontendApplicationContribution, Worksp
     protected openNewWindow(workspacePath: string, options?: WorkspaceInput): void {
         const url = new URL(window.location.href);
         url.hash = encodeURI(workspacePath);
+        console.log("[workpace-service] [openNewWindow] Opening new window with URL: " + url.toString());
         this.windowService.openNewWindow(url.toString());
     }
 
