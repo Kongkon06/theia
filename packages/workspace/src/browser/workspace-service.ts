@@ -157,33 +157,50 @@ export class WorkspaceService implements FrontendApplicationContribution, Worksp
 
         // Prefer the workspace path specified as the URL fragment, if present.
         if (window.location.hash.length > 1) {
-            // Remove the leading # and decode the URI.
             const wpPath = decodeURI(window.location.hash.substring(1));
-            const folderSegements = wpPath.split("/").filter(s => s.length > 0);
-            let workspaceUri;
-            const isDrivePattern = /^[A-Za-z]:$/.test(folderSegements[0]);
+            const folderSegments = wpPath.split('/').filter(s => s.length > 0);
+
+            let workspaceUri: URI;
+
+            const isDrivePattern = /^[A-Za-z]:$/.test(folderSegments[0]);
+
             if (!isDrivePattern) {
-                const authority = folderSegements[0];
-                const path = '/' + folderSegements.slice(1).join('/');
+                const authority = folderSegments[0];
+                const path = '/' + folderSegments.slice(1).join('/');
+
                 workspaceUri = new URI().withPath(path).withAuthority(authority).withScheme('file');
+
             } else {
                 workspaceUri = new URI().withPath(wpPath).withScheme('file');
             }
+
             let workspaceStat: FileStat | undefined;
+
             try {
                 workspaceStat = await this.fileService.resolve(workspaceUri);
-            } catch { }
+            } catch (error) {
+                this.logger.debug(`Failed to resolve workspace: ${error}`);
+            }
+
             if (workspaceStat && !workspaceStat.isDirectory && !this.isWorkspaceFile(workspaceStat)) {
-                this.messageService.error(nls.localize('theia/workspace/notWorkspaceFile', 'Not a valid workspace file: {0}', this.labelProvider.getLongName(workspaceUri)));
+                this.messageService.error(
+                    nls.localize(
+                        'theia/workspace/notWorkspaceFile',
+                        'Not a valid workspace file: {0}',
+                        this.labelProvider.getLongName(workspaceUri)
+                    )
+                );
                 return undefined;
             }
+
             return workspaceUri.toString();
-        } else {
-            // Else, ask the server for its suggested workspace (usually the one
-            // specified on the CLI, or the most recent).
-            return this.server.getMostRecentlyUsedWorkspace();
         }
+
+        // Else, ask the server for its suggested workspace (usually the one
+        // specified on the CLI, or the most recent).
+        return this.server.getMostRecentlyUsedWorkspace();
     }
+
 
     /**
      * Set the URL fragment to the given workspace path.
@@ -532,20 +549,27 @@ export class WorkspaceService implements FrontendApplicationContribution, Worksp
     }
 
     protected openWindow(uri: FileStat, options?: WorkspaceInput): void {
-        console.log("FileStat:", uri);
-        const workspacePath = uri.resource.authority ? `/${uri.resource.authority}${uri.resource.path.toString()}` : uri.resource.path.toString();
-        console.log("Uri path:", workspacePath);
+
+        this.logger.debug(`Open window. FileStat: ${uri.resource.toString()}`);
+
+        const workspacePath = uri.resource.authority
+            ? `/${uri.resource.authority}${uri.resource.path.toString()}`
+            : uri.resource.path.toString();
+
+        this.logger.debug(`Workspace path: ${workspacePath}`);
+
         if (this.shouldPreserveWindow(options)) {
             this.reloadWindow(workspacePath, options);
         } else {
             try {
                 this.openNewWindow(workspacePath, options);
             } catch (error) {
-                // Fall back to reloading the current window in case the browser has blocked the new window
-                this.logger.error(error.toString()).then(() => this.reloadWindow(workspacePath));
+                this.logger.error(`Failed to open new window: ${error}`)
+                    .then(() => this.reloadWindow(workspacePath));
             }
         }
     }
+
 
     protected reloadWindow(workspacePath: string, options?: WorkspaceInput): void {
         // Set the new workspace path as the URL fragment.
