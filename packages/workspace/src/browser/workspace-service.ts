@@ -158,18 +158,13 @@ export class WorkspaceService implements FrontendApplicationContribution, Worksp
         // Prefer the workspace path specified as the URL fragment, if present.
         if (window.location.hash.length > 1) {
             const wpPath = decodeURI(window.location.hash.substring(1));
-
-            const folderSegments = wpPath.split('/').filter(s => s.length > 0);
             let workspaceUri: URI;
-
-            const isDrivePattern = wpPath.includes('//');
-
-            if (isDrivePattern) {
-                const authority = folderSegments[0];
-                const path = '/' + folderSegments.slice(1).join('/');
-
+            if (wpPath.startsWith('//')) {
+                const unc = wpPath.slice(2);
+                const firstSlash = unc.indexOf('/');
+                const authority = firstSlash >= 0 ? unc.slice(0, firstSlash) : unc;
+                const path = firstSlash >= 0 ? unc.slice(firstSlash) : '/';
                 workspaceUri = new URI().withPath(path).withAuthority(authority).withScheme('file');
-
             } else {
                 workspaceUri = new URI().withPath(wpPath).withScheme('file');
             }
@@ -302,6 +297,12 @@ export class WorkspaceService implements FrontendApplicationContribution, Worksp
             }
         }
         return roots;
+    }
+
+    protected getWorkspacePath(resource: URI): string {
+        return resource.authority
+            ? `//${resource.authority}${resource.path.toString()}`
+            : resource.path.toString();
     }
 
     protected async getWorkspaceDataFromFile(): Promise<WorkspaceData | undefined> {
@@ -552,9 +553,7 @@ export class WorkspaceService implements FrontendApplicationContribution, Worksp
 
         console.log(`Open window. FileStat: ${uri.resource.toString()}`);
 
-        const workspacePath = uri.resource.authority
-            ? `//${uri.resource.authority}${uri.resource.path.toString()}`
-            : uri.resource.path.toString();
+        const workspacePath = this.getWorkspacePath(uri.resource);
 
         console.log(`[workspace-service] [openWindow] Workspace path: ${workspacePath}`);
 
