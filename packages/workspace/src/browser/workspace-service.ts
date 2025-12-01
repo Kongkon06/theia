@@ -241,7 +241,7 @@ export class WorkspaceService implements FrontendApplicationContribution, Worksp
                 this.toDisposeOnWorkspace.push(this.fileService.watch(uri));
                 this.onWorkspaceLocationChangedEmitter.fire(this._workspace);
             }
-            this.setURLFragment(uri.path.toString());
+            this.setURLFragment(this.getWorkspacePath(uri));
         } else {
             this.setURLFragment('');
         }
