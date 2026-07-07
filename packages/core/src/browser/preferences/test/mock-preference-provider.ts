@@ -36,6 +36,7 @@ export class MockPreferenceProvider extends PreferenceProviderImpl {
     setPreference(preferenceName: string, newValue: any, resourceUri?: string): Promise<boolean> {
         const oldValue = this.prefs[preferenceName];
         this.prefs[preferenceName] = newValue;
+        console.log(`[mock-preference-provider] Preference ${preferenceName} changed from ${oldValue} to ${newValue}`);
         return this.emitPreferencesChangedEvent([{ preferenceName, oldValue, newValue, scope: this.scope, domain: [] }]);
     }
 }

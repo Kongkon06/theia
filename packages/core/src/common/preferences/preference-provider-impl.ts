@@ -44,11 +44,14 @@ export abstract class PreferenceProviderBase {
      * The listeners are able to find what was changed from the emitted event.
      */
     protected emitPreferencesChangedEvent(changes: PreferenceProviderDataChanges | PreferenceProviderDataChange[]): Promise<boolean> {
+        console.log("[preference-impl] Change has happened!!!!!!")
         if (Array.isArray(changes)) {
+            console.log("[preference-impl] Is an Array")
             for (const change of changes) {
                 this.mergePreferenceProviderDataChange(change);
             }
         } else {
+            console.log("[preference-impl] Is an Object")
             for (const preferenceName of Object.keys(changes)) {
                 this.mergePreferenceProviderDataChange(changes[preferenceName]);
             }

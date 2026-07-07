@@ -241,6 +241,7 @@ export class CommonFrontendContribution implements FrontendApplicationContributi
     }
 
     protected handlePreferenceChange(e: PreferenceChangeEvent<CoreConfiguration>, app: FrontendApplication): void {
+        console.log("[common-frontend-contribution] Trigger has been called")
         switch (e.preferenceName) {
             case 'workbench.editor.highlightModifiedTabs': {
                 this.updateStyles();
@@ -271,6 +272,7 @@ export class CommonFrontendContribution implements FrontendApplicationContributi
     }
 
     protected setSashProperties(): void {
+        console.log("[common-frontend-contribution] Setting sash properties");
         const sashRule = `:root {
             --theia-sash-hoverDelay: ${this.preferences['workbench.sash.hoverDelay']}ms;
             --theia-sash-width: ${this.preferences['workbench.sash.size']}px;

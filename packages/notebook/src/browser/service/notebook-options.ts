@@ -120,6 +120,7 @@ export class NotebookOptionsService {
             let fontSize = outputFontSize;
             if (fontSize === 0) {
                 fontSize = this.preferenceService.get<number>('editor.fontSize')!;
+                console.log("[notebook-options] Font size of editor: " + fontSize)
             }
 
             lineHeight = lineHeight * fontSize;

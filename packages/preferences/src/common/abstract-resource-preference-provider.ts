@@ -222,6 +222,7 @@ export abstract class AbstractResourcePreferenceProvider extends PreferenceProvi
         }
 
         if (prefChanges.length > 0) {
+            console.log(`[abstract-resource-preference-provider] Preference has changed, emitting event`, prefChanges);
             this.emitPreferencesChangedEvent(prefChanges);
         }
     }
@@ -239,6 +240,7 @@ export abstract class AbstractResourcePreferenceProvider extends PreferenceProvi
             }
         }
         if (changes.length > 0) {
+            console.log("[abstract-resource-preference-provider] Prefernce has been changed");
             this.emitPreferencesChangedEvent(changes);
         }
     }

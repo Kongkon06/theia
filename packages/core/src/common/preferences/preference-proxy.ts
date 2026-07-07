@@ -185,10 +185,12 @@ export function createPreferenceProxy<T>(preferences: PreferenceService, promise
     }
     const onPreferenceChanged = (listener: (e: PreferenceChangeEvent<T>) => any, thisArgs?: any, disposables?: Disposable[]) => preferences.onPreferencesChanged(changes => {
         if (schema) {
+            console.log("[preference-provider] Change has happened!!!!!!")
             for (const key of Object.keys(changes)) {
                 const e = changes[key];
                 const overridden = preferences.overriddenPreferenceName(e.preferenceName);
                 const preferenceName = overridden ? overridden.preferenceName : e.preferenceName;
+                console.log("[preference-provider] Preference Name: " + preferenceName);
                 if (preferenceName.startsWith(prefix) && (!opts.overrideIdentifier || overridden?.overrideIdentifier === opts.overrideIdentifier)) {
                     if (schema.properties && schema.properties[preferenceName]) {
                         listener({

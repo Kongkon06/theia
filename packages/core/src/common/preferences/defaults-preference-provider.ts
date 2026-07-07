@@ -49,6 +49,7 @@ export class DefaultsPreferenceProvider extends PreferenceProviderBase implement
                     changes[change.preferenceName] = change;
                 }
             }
+            console.log("[defaults-preference-provider] Preference has changed, emitting event", changes);
             this.emitPreferencesChangedEvent(changes);
         }));
         this._ready.resolve();

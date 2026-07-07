@@ -260,6 +260,7 @@ export class PreferencesEditorWidget extends BaseWidget implements StatefulWidge
     }
 
     protected handlePreferenceChanges(e: PreferenceProviderDataChanges): void {
+        console.log("[preference-editor-widget] Preference is getting changed");
         for (const id of Object.keys(e)) {
             this.commonlyUsedRenderers.get(id)?.handleValueChange?.();
             this.renderers.get(id)?.handleValueChange?.();
