@@ -131,6 +131,7 @@ export const FileSystemPreferences = Symbol('FileSystemPreferences');
 export type FileSystemPreferences = PreferenceProxy<FileSystemConfiguration>;
 
 export function createFileSystemPreferences(preferences: PreferenceService, schema: PreferenceSchema = filesystemPreferenceSchema): FileSystemPreferences {
+    console.log("[filesystem-preferences] [createScmPreferences] CreatePreferencesProxy is being called")
     return createPreferenceProxy(preferences, schema);
 }
 

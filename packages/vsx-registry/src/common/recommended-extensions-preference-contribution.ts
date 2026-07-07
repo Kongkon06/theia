@@ -55,6 +55,7 @@ export function bindExtensionPreferences(bind: interfaces.Bind): void {
 
     bind(ExtensionNotificationPreferences).toDynamicValue(({ container }) => {
         const preferenceService = container.get<PreferenceService>(PreferenceService);
+        console.log("[recommended-extensions-preference-contribution] [bindExtensionPreferences] createPreferenceProxy is being Called");
         return createPreferenceProxy(preferenceService, recommendedExtensionNotificationPreferencesSchema);
     }).inSingletonScope();
     bind(PreferenceContribution).toConstantValue({ schema: recommendedExtensionNotificationPreferencesSchema });

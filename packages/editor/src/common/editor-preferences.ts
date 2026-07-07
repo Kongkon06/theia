@@ -223,6 +223,7 @@ export type EditorPreferences = PreferenceProxy<EditorConfiguration>;
  * See {@link bindEditorPreferences}
  */
 export function createEditorPreferences(preferences: PreferenceService, schema: PreferenceSchema = editorPreferenceSchema): EditorPreferences {
+    console.log("[editor-preferences] [createScmPreferences] CreatePreferencesProxy is being called")
     return createPreferenceProxy(preferences, schema);
 }
 

@@ -479,6 +479,7 @@ describe('Preference Service', () => {
             await preferences.set('editor.tabSize', 3, PreferenceScope.User);
 
             const events: PreferenceChangeEvent<{ [key: string]: any }>[] = [];
+            console.log("[preference-service.spec] [createScmPreferences] CreatePreferencesProxy is being called")
             const proxy = createPreferenceProxy<{ [key: string]: any }>(preferences, schema.getJSONSchema(PreferenceScope.Folder), { overrideIdentifier: 'json' });
             proxy.onPreferenceChanged(event => events.push(event));
 

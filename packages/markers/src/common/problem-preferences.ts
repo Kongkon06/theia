@@ -49,6 +49,7 @@ export const ProblemPreferences = Symbol('ProblemPreferences');
 export type ProblemPreferences = PreferenceProxy<ProblemConfiguration>;
 
 export function createProblemPreferences(preferences: PreferenceService, schema: PreferenceSchema = ProblemConfigSchema): ProblemPreferences {
+    console.log("[problem-preferences] [createScmPreferences] CreatePreferencesProxy is being called")
     return createPreferenceProxy(preferences, schema);
 }
 

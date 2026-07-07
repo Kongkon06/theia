@@ -344,6 +344,7 @@ export const CorePreferences = Symbol('CorePreferences');
 export type CorePreferences = PreferenceProxy<CoreConfiguration>;
 
 export function createCorePreferences(preferences: PreferenceService, schema: PreferenceSchema = corePreferenceSchema): CorePreferences {
+    console.log("[core-preferences] [createScmPreferences] CreatePreferencesProxy is being called")
     return createPreferenceProxy(preferences, schema);
 }
 

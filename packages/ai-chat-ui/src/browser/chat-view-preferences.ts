@@ -73,6 +73,7 @@ export const ChatViewPreferences = Symbol('ChatViewPreferences');
 export type ChatViewPreferences = PreferenceProxy<ChatViewConfiguration>;
 
 export function createChatViewPreferences(preferences: PreferenceService, schema: PreferenceSchema = chatViewPreferenceSchema): ChatViewPreferences {
+    console.log("[chat-view-preferences] [createScmPreferences] CreatePreferencesProxy is being called")
     return createPreferenceProxy(preferences, schema);
 }
 

@@ -172,6 +172,7 @@ export interface PreferenceProxyOptions {
  * @deprecated @since 1.23.0 use `PreferenceProxyFactory` instead.
  */
 export function createPreferenceProxy<T>(preferences: PreferenceService, promisedSchema: MaybePromise<IJSONSchema>, options?: PreferenceProxyOptions): PreferenceProxy<T> {
+    console.log("[preference-proxy] [createPreference] createPreference is being Called");
     const opts = options || {};
     const prefix = opts.prefix || '';
     const style = opts.style || 'flat';
@@ -185,12 +186,12 @@ export function createPreferenceProxy<T>(preferences: PreferenceService, promise
     }
     const onPreferenceChanged = (listener: (e: PreferenceChangeEvent<T>) => any, thisArgs?: any, disposables?: Disposable[]) => preferences.onPreferencesChanged(changes => {
         if (schema) {
-            console.log("[preference-provider] Change has happened!!!!!!")
+            console.log("[preference-proxy] [preference-provider] Change has happened!!!!!!")
             for (const key of Object.keys(changes)) {
                 const e = changes[key];
                 const overridden = preferences.overriddenPreferenceName(e.preferenceName);
                 const preferenceName = overridden ? overridden.preferenceName : e.preferenceName;
-                console.log("[preference-provider] Preference Name: " + preferenceName);
+                console.log("[preference-proxy] [preference-provider] Preference Name: " + preferenceName);
                 if (preferenceName.startsWith(prefix) && (!opts.overrideIdentifier || overridden?.overrideIdentifier === opts.overrideIdentifier)) {
                     if (schema.properties && schema.properties[preferenceName]) {
                         listener({
@@ -319,6 +320,7 @@ export function createPreferenceProxy<T>(preferences: PreferenceService, promise
             const newPrefix = fullProperty + '.';
             for (const p of Object.keys(schema.properties)) {
                 if (p.startsWith(newPrefix)) {
+                    console.log("[preference-proxy] [get] CreatePreferencesProxy is being called")
                     return createPreferenceProxy(preferences, schema, { prefix: newPrefix, resourceUri: opts.resourceUri, overrideIdentifier: opts.overrideIdentifier, style });
                 }
             }

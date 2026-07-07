@@ -48,6 +48,7 @@ export const ScmPreferences = Symbol('ScmPreferences');
 export type ScmPreferences = PreferenceProxy<ScmConfiguration>;
 
 export function createScmPreferences(preferences: PreferenceService, schema: PreferenceSchema = scmPreferenceSchema): ScmPreferences {
+    console.log("[scm-preferences] [createScmPreferences] CreatePreferencesProxy is being called")
     return createPreferenceProxy(preferences, schema);
 }
 

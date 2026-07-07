@@ -186,6 +186,7 @@ export class CommonFrontendContribution implements FrontendApplicationContributi
 
         this.setOsClass();
         this.updateStyles();
+        console.log("[commmon-frontend-contribution] [configure] Handle Preference has been called")
         this.preferences.ready.then(() => this.setSashProperties());
         this.preferences.onPreferenceChanged(e => this.handlePreferenceChange(e, app));
 

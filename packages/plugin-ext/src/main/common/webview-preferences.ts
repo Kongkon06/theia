@@ -45,6 +45,7 @@ export const WebviewPreferences = Symbol('WebviewPreferences');
 export type WebviewPreferences = PreferenceProxy<WebviewConfiguration>;
 
 export function createWebviewPreferences(preferences: PreferenceService, schema: PreferenceSchema = WebviewConfigSchema): WebviewPreferences {
+    console.log("[webview-preferences] [createWebviewPreferences] CreatePreferencesProxy is being called")
     return createPreferenceProxy(preferences, schema);
 }
 

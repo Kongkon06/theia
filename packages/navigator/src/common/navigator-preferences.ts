@@ -52,6 +52,7 @@ export const FileNavigatorPreferences = Symbol('NavigatorPreferences');
 export type FileNavigatorPreferences = PreferenceProxy<FileNavigatorConfiguration>;
 
 export function createNavigatorPreferences(preferences: PreferenceService, schema: PreferenceSchema = FileNavigatorConfigSchema): FileNavigatorPreferences {
+    console.log("[createNavigatorPreferences] [createScmPreferences] CreatePreferencesProxy is being called")
     return createPreferenceProxy(preferences, schema);
 }
 

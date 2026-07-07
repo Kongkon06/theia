@@ -92,6 +92,7 @@ export const SearchInWorkspacePreferences = Symbol('SearchInWorkspacePreferences
 export type SearchInWorkspacePreferences = PreferenceProxy<SearchInWorkspaceConfiguration>;
 
 export function createSearchInWorkspacePreferences(preferences: PreferenceService, schema: PreferenceSchema = searchInWorkspacePreferencesSchema): SearchInWorkspacePreferences {
+    console.log("[search-in-workspace-preferences] [createSearchInWorkspacePreferences] CreatePreferenceProxy is being called")
     return createPreferenceProxy(preferences, schema);
 }
 

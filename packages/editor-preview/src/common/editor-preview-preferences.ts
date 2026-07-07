@@ -38,6 +38,7 @@ export const EditorPreviewPreferences = Symbol('EditorPreviewPreferences');
 export type EditorPreviewPreferences = PreferenceProxy<EditorPreviewConfiguration>;
 
 export function createEditorPreviewPreferences(preferences: PreferenceService, schema: PreferenceSchema = EditorPreviewConfigSchema): EditorPreviewPreferences {
+    console.log("[editor-preview-preferences] [createScmPreferences] CreatePreferencesProxy is being called")
     return createPreferenceProxy(preferences, schema);
 }
 

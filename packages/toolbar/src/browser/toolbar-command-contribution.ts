@@ -187,6 +187,7 @@ export function bindToolbar(bind: interfaces.Bind): void {
     bind(ToolbarDefaultsFactory).toConstantValue(ToolbarDefaults);
     bind(ToolbarPreferences).toDynamicValue(({ container }) => {
         const preferences = container.get<PreferenceService>(PreferenceService);
+        console.log("[toolbar-command-contribution] [bindToolbar] createPreferenceProxy is being Called");
         return createPreferenceProxy(preferences, ToolbarPreferencesSchema);
     }).inSingletonScope();
     bind(PreferenceContribution).toConstantValue({

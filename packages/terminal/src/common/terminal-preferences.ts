@@ -588,6 +588,7 @@ export const TerminalPreferences = Symbol('TerminalPreferences');
 export type TerminalPreferences = PreferenceProxy<TerminalConfiguration>;
 
 export function createTerminalPreferences(preferences: PreferenceService, schema: PreferenceSchema = TerminalConfigSchema): TerminalPreferences {
+    console.log("[terminal-preferences] [createTerminalPreferences] createTerminalPreferences is being Called");
     return createPreferenceProxy(preferences, schema);
 }
 

@@ -46,6 +46,7 @@ export const TestPreferences = Symbol('TestPreferences');
 export type TestPreferences = PreferenceProxy<TestConfiguration>;
 
 export function createTestPreferences(preferences: PreferenceService, schema: PreferenceSchema = TestConfigSchema): TestPreferences {
+    console.log("[test-preferences] [createTestPreferences] createTestPreferences is being Called");
     return createPreferenceProxy(preferences, schema);
 }
 

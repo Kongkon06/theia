@@ -43,6 +43,7 @@ export const VsxExtensionsPreferences = Symbol('VsxExtensionsPreferences');
 export type VsxExtensionsPreferences = PreferenceProxy<VsxExtensionsConfiguration>;
 
 export function createVsxExtensionsPreferences(preferences: PreferenceService, schema: PreferenceSchema = VsxExtensionsPreferenceSchema): VsxExtensionsPreferences {
+    console.log("[vsx-entensions-pref] [createVsxExntesions] Create preference is being called")
     return createPreferenceProxy(preferences, schema);
 }
 

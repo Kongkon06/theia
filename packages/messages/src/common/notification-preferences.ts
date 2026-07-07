@@ -43,6 +43,7 @@ export const NotificationPreferences = Symbol('NotificationPreferences');
 export type NotificationPreferences = PreferenceProxy<NotificationConfiguration>;
 
 export function createNotificationPreferences(preferences: PreferenceService, schema: PreferenceSchema = NotificationConfigSchema): NotificationPreferences {
+    console.log("[notification-preferences] [createScmPreferences] CreatePreferencesProxy is being called")
     return createPreferenceProxy(preferences, schema);
 }
 

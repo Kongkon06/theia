@@ -230,12 +230,15 @@ export function createMonacoConfigurationService(container: interfaces.Container
             : undefined;
         const resourceUri: string | undefined = (overrides && 'resource' in overrides && !!overrides['resource']) ? overrides['resource'].toString() : undefined;
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        console.log("[monaco-frontend-module] [createScmPreferences] CreatePreferencesProxy is being called")
         const proxy = createPreferenceProxy<{ [key: string]: any }>(preferences, preferenceSchemaService.getJSONSchema(PreferenceScope.Folder), {
             resourceUri, overrideIdentifier, style: 'both'
         });
         if (section) {
+            console.log("[monaco-frontend-module] Return as a section")
             return proxy[section];
         }
+        console.log("[monaco-frontend-module] Return as a Proxy")
         return proxy;
     };
 
@@ -314,6 +317,7 @@ export function createMonacoConfigurationService(container: interfaces.Container
     };
 
     preferences.onPreferencesChanged(event => {
+        console.log("[monaco-frontend-module] [onPreferencesChanged] Preferences changed:", event);
         let source: ConfigurationTarget | undefined;
         let context = newFireDidChangeConfigurationContext();
         for (let key of Object.keys(event)) {

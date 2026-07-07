@@ -53,6 +53,7 @@ export const GettingStartedPreferences = Symbol('GettingStartedPreferences');
 export type GettingStartedPreferences = PreferenceProxy<GettingStartedConfiguration>;
 
 export function createGettingStartedPreferences(preferences: PreferenceService, schema: PreferenceSchema = GettingStartedPreferenceSchema): GettingStartedPreferences {
+    console.log("[gettingstarted-preferences] [createScmPreferences] CreatePreferencesProxy is being called")
     return createPreferenceProxy(preferences, schema);
 }
 

@@ -43,6 +43,7 @@ export const OutputPreferences = Symbol('OutputPreferences');
 export type OutputPreferences = PreferenceProxy<OutputConfiguration>;
 
 export function createOutputPreferences(preferences: PreferenceService, schema: PreferenceSchema = OutputConfigSchema): OutputPreferences {
+    console.log("[output-preferences] [createScmPreferences] CreatePreferencesProxy is being called")
     return createPreferenceProxy(preferences, schema);
 }
 

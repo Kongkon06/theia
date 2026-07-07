@@ -37,6 +37,7 @@ export const WorkspacePreferences = Symbol('WorkspacePreferences');
 export type WorkspacePreferences = PreferenceProxy<WorkspaceConfiguration>;
 
 export function createWorkspacePreferences(preferences: PreferenceService, schema: PreferenceSchema = workspacePreferenceSchema): WorkspacePreferences {
+    console.log("[workspace-preferences] [createWorkspacePreferences] createWorkspacePreferences is being Called");
     return createPreferenceProxy(preferences, schema);
 }
 

@@ -69,6 +69,7 @@ export const ElectronWindowPreferences = Symbol('ElectronWindowPreferences');
 export type ElectronWindowPreferences = PreferenceProxy<ElectronWindowConfiguration>;
 
 export function createElectronWindowPreferences(preferences: PreferenceService, schema: PreferenceSchema = electronWindowPreferencesSchema): ElectronWindowPreferences {
+    console.log("[electron-window-preferences] [createElectronWindowPreferences] CreatePreferencesProxy is being called")
     return createPreferenceProxy(preferences, schema);
 }
 

@@ -71,6 +71,7 @@ export const WorkspaceTrustPreferences = Symbol('WorkspaceTrustPreferences');
 export type WorkspaceTrustPreferences = PreferenceProxy<WorkspaceTrustConfiguration>;
 
 export function createWorkspaceTrustPreferences(preferences: PreferenceService, schema: PreferenceSchema = workspaceTrustPreferenceSchema): WorkspaceTrustPreferences {
+    console.log("[workspace-trust-preferences] [createWorkspaceTrustPreferences] createWorkspaceTrustPreferences is being Called");
     return createPreferenceProxy(preferences, schema);
 }
 

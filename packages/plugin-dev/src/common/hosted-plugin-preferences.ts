@@ -80,6 +80,7 @@ export const HostedPluginPreferences = Symbol('HostedPluginPreferences');
 export type HostedPluginPreferences = PreferenceProxy<HostedPluginConfiguration>;
 
 export function createNavigatorPreferences(preferences: PreferenceService, schema: PreferenceSchema = HostedPluginConfigSchema): HostedPluginPreferences {
+    console.log("[hosted-plugin-preference] [createNavigatorPreferences] CreatePreferencesProxy is being called")
     return createPreferenceProxy(preferences, schema);
 }
 

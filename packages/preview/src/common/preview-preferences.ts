@@ -39,6 +39,7 @@ export const PreviewPreferences = Symbol('PreviewPreferences');
 export type PreviewPreferences = PreferenceProxy<PreviewConfiguration>;
 
 export function createPreviewPreferences(preferences: PreferenceService, schema: PreferenceSchema = PreviewConfigSchema): PreviewPreferences {
+    console.log("[preview-preferences] [createPreviewPreferences] CreatePreferencesProxy is being called")
     return createPreferenceProxy(preferences, schema);
 }
 
